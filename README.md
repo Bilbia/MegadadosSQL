@@ -12,8 +12,9 @@ Antes de tudo devemos criar a Database do projeto no MySQL Workbench.
 O seguinte script cria a database 'projetoSQL', que é utilizado pelo projeto:
 
 ```
-CREATE SCHEMA IF NOT EXISTS 'projetoSQL';
-USE 'projetoSQL';
+DROP DATABASE IF EXISTS projetoSQL;
+CREATE DATABASE projetoSQL;
+USE projetoSQL;
 ```
 Para conectar o serviço ao servidor de MySQL, é necessário criar um arquivo txt nomeado ```account.txt```, onde a primeira linha deverá conter o seu username e a segunda linha deve conter a sua senha. Certifique-se de que não hajam espaços e de que o arquivo está no formato correto.
 
