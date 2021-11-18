@@ -6,16 +6,16 @@ from database import Base
 
 
 class Disciplina(Base):
-    __tablename__ = "disciplina"
+    __tablename__ = "Disciplina"
 
     nome = Column(String(45), primary_key=True, index=True)
     professor = Column(String(45), nullable=True)
     anotacao = Column(String(45), nullable=True)
 
 class Nota(Base):
-    __tablename__ = "nota"
+    __tablename__ = "Nota"
 
     nota_id = Column(Integer, primary_key=True, index=True, nullable=False, autoincrement=True)
-    disc_nome = Column(String(45), ForeignKey("disciplina.nome"), nullable=False, index=True)
+    disc_nome = Column(String(45), ForeignKey("Disciplina.nome"), nullable=False, index=True)
     nota = Column(Float, index=True)
     entrega = Column(String(45), nullable=True)
