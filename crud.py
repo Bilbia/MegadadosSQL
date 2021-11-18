@@ -7,8 +7,9 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.types import String, Integer
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
-
-from . import models, schemas
+from fastapi.encoders import jsonable_encoder
+from typing import Dict
+import models, schemas
 
 
 def get_disciplina(db: Session, nome: str):
@@ -20,6 +21,12 @@ def get_disciplinas(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_disciplina(db: Session, disc: schemas.Disciplina):
+    # disciplina_data: Dict = jsonable_encoder(disc)
+    # disciplina = models.Disciplina = models.Disciplina(**disciplina_data)
+
+    print("="*100)
+    print(disc.nome)
+    print(type(disc.nome))
     disciplina = models.Disciplina(nome= disc.nome, professor= disc.professor, anotacao= disc.anotacao)
     db.add(disciplina)
     db.commit()
@@ -28,7 +35,7 @@ def create_disciplina(db: Session, disc: schemas.Disciplina):
 
 
 def update_disciplina(db: Session, nome: str, disc: schemas.Disciplina):
-    db.query(models.Disciplina).filter(models.Disciplina.nome == nome).update({models.Disciplina.nome: disc.nome, models.Disciplina.professor: disc.professor, models.Disciplina.anotacoes: disc.anotacao})
+    db.query(models.Disciplina).filter(models.Disciplina.nome == nome).update({models.Disciplina.nome: disc.nome, models.Disciplina.professor: disc.professor, models.Disciplina.anotacao: disc.anotacao})
     db.commit()
     return models.Disciplina(nome= nome, professor= disc.professor, anotacao= disc.anotacao)
 
@@ -53,7 +60,7 @@ def create_nota(db: Session, nota: schemas.Nota):
     return(new_nota)
 
 def update_nota(db: Session, idNota: int, nota:schemas.Nota):
-    db.query(models.Nota).filter(models.Nota.nota_id == idNota).update({models.Nota.disc_nome: nota.disc_nome, models.Nota.nota: nota.nota, models.Nota.entrega: nota.entrega})
+    db.query(models.Nota).filter(models.Nota.nota_id == idNota).update({models.Nota.nota: nota.nota, models.Nota.entrega: nota.entrega})
     db.commit()
     return 1
 

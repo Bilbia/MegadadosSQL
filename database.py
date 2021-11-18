@@ -4,15 +4,16 @@ from sqlalchemy.orm import sessionmaker
 
 try:
     accountFile = open("account.txt", "r")
-    LOGIN = accountFile.readline()
-    PASSWORD = accountFile.readline()
+    LOGIN = accountFile.readline().rstrip("\n")
+    PASSWORD = accountFile.readline().rstrip("\n")
+    accountFile.close()
 except:
     print("Erro ao tentar ler arquivo de conta do MYSQL. Checar formatação e se o arquivo 'account.txt' está presente.")
     exit(1)
 
 print(f"Credentials found: {LOGIN=},{PASSWORD=}")
 
-SQLALCHEMY_DATABASE_URL = f"mysql+mysqldb://{LOGIN}:{PASSWORD}@localhost/notas"
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{LOGIN}:{PASSWORD}@localhost/projetoSQL"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL

@@ -3,36 +3,14 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class DisciplinaBase(BaseModel):
+class Disciplina(BaseModel):
     nome: str
-    no
+    professor: Optional[str] = None
+    anotacao: Optional[str] = None
 
 
-class DisciplinaCreate(ItemBase):
-    
-    pass
-
-
-class (ItemBase):
-    id: int
-    owner_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class UserBase(BaseModel):
-    email: str
-
-
-class UserCreate(UserBase):
-    password: str
-
-
-class User(UserBase):
-    id: int
-    is_active: bool
-    items: List[Item] = []
-
-    class Config:
-        orm_mode = True
+class Nota(BaseModel):
+    nota_id : int
+    disc_nome: str
+    nota: float
+    entrega: Optional[str] = None
